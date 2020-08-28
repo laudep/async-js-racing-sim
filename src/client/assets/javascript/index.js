@@ -140,7 +140,7 @@ async function runCountdown() {
 }
 
 function handleSelectPodRacer(target) {
-  console.log("selected a pod", target.id);
+  console.log(`Pod selected: ${target.id}`);
 
   // remove class selected from all racer options
   const selected = document.querySelector("#racers .selected");
@@ -151,7 +151,7 @@ function handleSelectPodRacer(target) {
   // add class selected to current target
   target.classList.add("selected");
 
-  // TODO - save the selected racer to the store
+  store.player_id = parseInt(target.id);
 }
 
 function handleSelectTrack(target) {
