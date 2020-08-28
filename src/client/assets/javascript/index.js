@@ -34,22 +34,20 @@ function setupClickHandlers() {
   document.addEventListener(
     "click",
     function (event) {
-      const target = event.target.closest("li");
+      const { target } = event;
+      const closestListElement = target.closest("li") || target;
       const TRACK_SELECTOR = ".card.track";
       const RACER_SELECTOR = ".card.podracer";
 
       // Race track form field
-      if (target.matches(TRACK_SELECTOR)) {
-        handleSelectTrack(target);
+      if (closestListElement.matches(TRACK_SELECTOR)) {
+        handleSelectTrack(closestListElement);
         return;
       }
 
       // Podracer form field
-      if (
-        target.parentElement.matches(RACER_SELECTOR) ||
-        target.matches(RACER_SELECTOR)
-      ) {
-        handleSelectPodRacer(target);
+      if (closestListElement.matches(RACER_SELECTOR)) {
+        handleSelectPodRacer(closestListElement);
         return;
       }
 
