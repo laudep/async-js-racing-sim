@@ -166,8 +166,9 @@ function handleSelectTrack(target) {
 }
 
 function handleAccelerate() {
-  console.log("accelerate button clicked");
-  // TODO - Invoke the API call to accelerate
+  console.log("Accelerating");
+  const { race_id } = store;
+  accelerate(race_id);
 }
 
 // HTML VIEWS ------------------------------------------------
@@ -317,8 +318,6 @@ function defaultFetchOpts() {
     },
   };
 }
-
-// TODO - Make a fetch call (with error handling!) to each of the following API endpoints
 
 const getTracks = () =>
   fetch(`${SERVER}/api/tracks`)
