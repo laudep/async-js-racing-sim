@@ -78,8 +78,8 @@ async function delay(ms) {
  */
 const handleCreateRace = async () => {
   try {
-    const track = await getTracks().find(
-      (track) => track.id === store.track_id
+    const track = await getTracks().then((tracks) =>
+      tracks.find((track) => track.id === store.track_id)
     );
     const racers = await getRacers();
 
