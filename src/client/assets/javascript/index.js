@@ -34,16 +34,23 @@ function setupClickHandlers() {
   document.addEventListener(
     "click",
     function (event) {
-      const { target } = event;
+      const target = event.target.closest("li");
+      const TRACK_SELECTOR = ".card.track";
+      const RACER_SELECTOR = ".card.podracer";
 
       // Race track form field
-      if (target.matches(".card.track")) {
+      if (target.matches(TRACK_SELECTOR)) {
         handleSelectTrack(target);
+        return;
       }
 
       // Podracer form field
-      if (target.matches(".card.podracer")) {
+      if (
+        target.parentElement.matches(RACER_SELECTOR) ||
+        target.matches(RACER_SELECTOR)
+      ) {
         handleSelectPodRacer(target);
+        return;
       }
 
       // Submit create race form
@@ -52,11 +59,13 @@ function setupClickHandlers() {
 
         // start race
         handleCreateRace();
+        return;
       }
 
       // Handle acceleration click
       if (target.matches("#gas-peddle")) {
         handleAccelerate(target);
+        return;
       }
     },
     false
@@ -134,8 +143,8 @@ async function runCountdown() {
           clearInterval(countInterval);
           resolve();
         }
-	  };
-	  
+      };
+
       const countInterval = setInterval(countdown, 1000);
     });
   } catch (err) {
