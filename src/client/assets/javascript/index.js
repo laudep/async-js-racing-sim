@@ -62,7 +62,14 @@ function setupClickHandlers() {
 
       // Handle acceleration click
       if (target.matches("#gas-peddle")) {
-        handleAccelerate(target);
+        const times = (x) => (f) => {
+          if (x > 0) {
+            f();
+            times(x - 1)(f);
+          }
+        };
+        times(25)(() => handleAccelerate(target));
+        // handleAccelerate(target);
         return;
       }
     },
@@ -96,23 +103,32 @@ const handleCreateRace = async () => {
     const { track_id, player_id } = store;
     createRace(player_id, track_id)
       .then((race) => {
+        // workaround for server bug: substract 1 from the race_id
+        // see issue on GitHub:
+        // https://github.com/udacity/nd032-c3-asynchronous-programming-with-javascript-project-starter/issues/6#issuecomment-657034657
+        race.ID -= 1;
+
         store.race_id = parseInt(race.ID);
         return runCountdown();
       })
       .then(() => startRace(store.race_id))
-      .then(() => runRace(store.race_id));
+      .then(() => runRace(store.race_id, store.track_id));
   } catch (err) {
     console.error(`Error handling race creation: ${err}`);
   }
 };
 
-const runRace = (raceID) =>
-  new Promise((resolve) => {
+const runRace = (raceId, trackId) =>
+  new Promise(async (resolve) => {
+    const track = await getTracks().then((tracks) =>
+      tracks.find((track) => track.id === trackId)
+    );
+
     const getRaceDetails = async () => {
-      getRace(raceID).then((race) => {
+      getRace(raceId).then((race) => {
         // update the leaderboard while the race is in progress
         if (race.status === "in-progress") {
-          renderAt("#leaderBoard", raceProgress(race.positions));
+          renderAt("#leaderBoard", raceProgress(race.positions, track));
         } else if (race.status === "finished") {
           // race finished:
           // stop the interval, render the results & resolve the promise
@@ -122,7 +138,7 @@ const runRace = (raceID) =>
         }
       });
     };
-    const raceInterval = setInterval(getRaceDetails, 500, raceID);
+    const raceInterval = setInterval(getRaceDetails, 500, raceId);
   }).catch((err) => {
     console.log(`Error running race: ${err}`);
   });
@@ -179,6 +195,7 @@ function handleSelectTrack(target) {
 function handleAccelerate() {
   console.log("Accelerating");
   const { race_id } = store;
+
   accelerate(race_id);
 }
 
@@ -292,22 +309,58 @@ function resultsView(positions) {
 	`;
 }
 
-function raceProgress(positions) {
+function raceProgress(positions, track) {
   let userPlayer = positions.find((e) => e.id === store.player_id);
   userPlayer.driver_name += " (you)";
 
-  positions = positions.sort((a, b) => (a.segment > b.segment ? -1 : 1));
+  positions.sort((a, b) => {
+    if (a.final_position && b.final_position) {
+      return a.final_position > b.final_position ? 2 : -2;
+    }
+    return a.segment > b.segment ? -1 : 1;
+  });
+
   let count = 1;
 
-  const results = positions.map((p) => {
-    return `
+  const getRaceCompletionPercentage = (segment) => {
+    if (segment === 0) {
+      return 0;
+    }
+    const trackLength = track.segments.reduce((a, b) => a + b);
+    const segmentsDone = track.segments.slice(0, segment - 1);
+    const lengthDone =
+      segmentsDone.length > 0 ? segmentsDone.reduce((a, b) => a + b) : 0;
+    const percentageDone = (lengthDone / trackLength) * 100;
+    return Math.ceil(percentageDone);
+  };
+
+  const progressBar = (percentage) => `
+  	<div class="progress-outer">
+	  <div class="progress-inner" style="width:${percentage}%">
+	  ${percentage === 100 ? "FINISHED" : ""}
+	  </div>
+	</div>
+	`;
+
+  const getProgressBar = (segment) =>
+    track
+      ? `<td>
+	  	${progressBar(getRaceCompletionPercentage(segment))}
+	  </td>`
+      : "";
+
+  const results = positions
+    .map(
+      ({ driver_name, segment }) => `
 			<tr>
 				<td>
-					<h3>${count++} - ${p.driver_name}</h3>
+					<h3>${count++} - ${driver_name}</h3>
 				</td>
+				${getProgressBar(segment)}
 			</tr>
-		`;
-  });
+		`
+    )
+    .join("");
 
   return `
 		<main>
@@ -366,24 +419,19 @@ const createRace = (player_id, track_id) => {
     .catch((err) => console.log(`Error creating race: ${err}`));
 };
 
-// we substract 1 from the race_id
-// see issue on GitHub:
-// https://github.com/udacity/nd032-c3-asynchronous-programming-with-javascript-project-starter/issues/6#issuecomment-657034657
 const getRace = (id) =>
-  fetch(`${SERVER}/api/races/${id - 1}`)
+  fetch(`${SERVER}/api/races/${id}`)
     .then((res) => res.json())
-    .catch((err) => console.err(`Error getting race: ${err}`));
+    .catch((err) => console.error(`Error getting race: ${err}`));
 
 const startRace = (id) =>
-  fetch(`${SERVER}/api/races/${id - 1}/start`, {
+  fetch(`${SERVER}/api/races/${id}/start`, {
     method: "POST",
     ...defaultFetchOpts(),
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(`Error starting race: ${err}`));
+  }).catch((err) => console.log(`Error starting race: ${err}`));
 
 const accelerate = (id) =>
-  fetch(`${SERVER}/api/races/${id - 1}/accelerate`, {
+  fetch(`${SERVER}/api/races/${id}/accelerate`, {
     method: "POST",
     ...defaultFetchOpts(),
   })

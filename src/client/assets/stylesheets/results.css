@@ -1,11 +1,24 @@
 /* RESULTS PAGE SPECIFIC STYLES */
 
 /* -------------------  MOBILE  --------------------- */
+.progress-outer {
+  margin-left: 2.3em;
+  margin-bottom: 1em;
+  background-color: #616161 !important;
+  width: 10em;
+  height: 1.2em;
+  color: white !important;
+  font-weight: bold;
+  text-align: center;
+}
 
+.progress-inner {
+  background-color: #2196f3 !important;
+  height: 100%;
+}
 
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
-
 }
 
 /* -------------------  DESKTOP  -------------------- */
