@@ -148,14 +148,12 @@ function handleSelectPodRacer(target) {
     selected.classList.remove("selected");
   }
 
-  // add class selected to current target
   target.classList.add("selected");
-
   store.player_id = parseInt(target.id);
 }
 
 function handleSelectTrack(target) {
-  console.log("selected a track", target.id);
+  console.log(`Track selected: ${target.id}`);
 
   // remove class selected from all track options
   const selected = document.querySelector("#tracks .selected");
@@ -163,10 +161,8 @@ function handleSelectTrack(target) {
     selected.classList.remove("selected");
   }
 
-  // add class selected to current target
   target.classList.add("selected");
-
-  // TODO - save the selected track id to the store
+  store.track_id = parseInt(target.id);
 }
 
 function handleAccelerate() {
