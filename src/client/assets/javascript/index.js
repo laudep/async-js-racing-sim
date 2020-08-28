@@ -1,5 +1,3 @@
-// PROVIDED CODE BELOW (LINES 1 - 80) DO NOT REMOVE
-
 // The store will hold all information needed globally
 const store = {
   track_id: undefined,
@@ -13,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setupClickHandlers();
 });
 
-async function onPageLoad() {
+const onPageLoad = async () => {
   try {
     getTracks().then((tracks) => {
       const html = renderTrackCards(tracks);
@@ -25,12 +23,11 @@ async function onPageLoad() {
       renderAt("#racers", html);
     });
   } catch (error) {
-    console.log("Problem getting tracks and racers ::", error.message);
-    console.error(error);
+    console.log(`Error getting tracks and/or racers: ${error.message}`);
   }
-}
+};
 
-function setupClickHandlers() {
+const setupClickHandlers = () =>
   document.addEventListener(
     "click",
     function (event) {
@@ -61,6 +58,7 @@ function setupClickHandlers() {
       }
 
       // Handle acceleration click
+      //TODO remove
       if (target.matches("#gas-peddle")) {
         const times = (x) => (f) => {
           if (x > 0) {
@@ -75,7 +73,6 @@ function setupClickHandlers() {
     },
     false
   );
-}
 
 async function delay(ms) {
   try {
@@ -85,8 +82,6 @@ async function delay(ms) {
     console.log(error);
   }
 }
-// ^ PROVIDED CODE ^ DO NOT REMOVE
-
 /**
  * Controls race flow
  */
@@ -103,7 +98,7 @@ const handleCreateRace = async () => {
     const { track_id, player_id } = store;
     createRace(player_id, track_id)
       .then((race) => {
-        // workaround for server bug: substract 1 from the race_id
+        // workaround for server bug: decrement the race_id
         // see issue on GitHub:
         // https://github.com/udacity/nd032-c3-asynchronous-programming-with-javascript-project-starter/issues/6#issuecomment-657034657
         race.ID -= 1;
@@ -200,8 +195,6 @@ function handleAccelerate() {
 }
 
 // HTML VIEWS ------------------------------------------------
-// Provided code - do not remove
-
 function renderRacerCars(racers) {
   if (!racers.length) {
     return `
@@ -377,8 +370,6 @@ function renderAt(element, html) {
 
   node.innerHTML = html;
 }
-
-// ^ Provided code ^ do not remove
 
 // API CALLS ------------------------------------------------
 
