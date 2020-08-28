@@ -127,11 +127,15 @@ async function runCountdown() {
     let timer = 3;
 
     return new Promise((resolve) => {
-      const countdown = () =>
-        timer > 0
-          ? (document.getElementById("big-numbers").innerHTML = --timer)
-          : clearInterval(countInterval) && resolve();
-
+      const countdown = () => {
+        if (timer > 0) {
+          document.getElementById("big-numbers").innerHTML = --timer;
+        } else {
+          clearInterval(countInterval);
+          resolve();
+        }
+	  };
+	  
       const countInterval = setInterval(countdown, 1000);
     });
   } catch (err) {
