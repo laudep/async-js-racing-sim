@@ -9,8 +9,8 @@
 
 ## Introduction
 <!-- markdownlint-enable -->
-This is a racing simulator in JavaScript made for a
-[Udacity](https://www.udacity.com/) course in asynchronous programming.
+This is a racing simulator in JavaScript made for a Udacity course in
+asynchronous programming.
 
 ### Game Mechanics
 
