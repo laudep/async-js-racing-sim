@@ -398,27 +398,13 @@ function renderAt(element, html) {
 }
 
 // API CALLS ------------------------------------------------
-
-// const SERVER = "http://localhost:8000";
-const SERVER = "";
-
-function defaultFetchOpts() {
-  return {
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": SERVER,
-    },
-  };
-}
-
 const getTracks = () =>
-  fetch(`${SERVER}/api/tracks`)
+  fetch(`/api/tracks`)
     .then((res) => res.json())
     .catch((err) => console.error(`Error getting tracks: ${err}`));
 
 const getRacers = () =>
-  fetch(`${SERVER}/api/cars`)
+  fetch(`/api/cars`)
     .then((res) => res.json())
     .catch((err) => console.error(`Error getting racers: ${err}`));
 
@@ -427,7 +413,7 @@ const createRace = (player_id, track_id) => {
   track_id = parseInt(track_id);
   const body = { player_id, track_id };
 
-  return fetch(`${SERVER}/api/races`, {
+  return fetch(`/api/races`, {
     method: "POST",
     body: JSON.stringify(body),
   })
@@ -436,17 +422,17 @@ const createRace = (player_id, track_id) => {
 };
 
 const getRace = (id) =>
-  fetch(`${SERVER}/api/races/${id}`)
+  fetch(`/api/races/${id}`)
     .then((res) => res.json())
     .catch((err) => console.error(`Error getting race: ${err}`));
 
 const startRace = (id) =>
-  fetch(`${SERVER}/api/races/${id}/start`, {
+  fetch(`/api/races/${id}/start`, {
     method: "POST",
   }).catch((err) => console.log(`Error starting race: ${err}`));
 
 const accelerate = (id) =>
-  fetch(`${SERVER}/api/races/${id}/accelerate`, {
+  fetch(`/api/races/${id}/accelerate`, {
     method: "POST",
   })
     .then((res) => res.status)

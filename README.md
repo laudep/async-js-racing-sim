@@ -14,10 +14,6 @@
 This is a racing simulator in JavaScript made for a
 [Udacity](https://www.udacity.com/) course in asynchronous programming.
 
-### Demo
-
-There's an online demo deployed on Heroku: [async-js-racing-sim.herokuapp.com][demo-url].
-
 ### Game Mechanics
 
 You select a player and track, the game begins and you accelerate your racer by
@@ -125,4 +121,3 @@ Accelerate a car
 
 [gh-actions-badge]: https://img.shields.io/github/workflow/status/laudep/async-js-racing-sim/deploy
 [gh-actions-url]: https://github.com/laudep/async-js-racing-sim/actions
-[demo-url]: https://async-js-racing-sim.herokuapp.com/
