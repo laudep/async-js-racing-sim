@@ -6,6 +6,11 @@ const store = {
   cheat_mode: false,
 };
 
+const updateStartButton = () =>
+  (document.getElementById("submit-create-race").disabled = !(
+    store.track_id && store.player_id
+  ));
+
 // We need our javascript to wait until the DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
   onPageLoad();
@@ -40,13 +45,13 @@ const setupClickHandlers = () =>
       // Race track form field
       if (closestListElement.matches(TRACK_SELECTOR)) {
         handleSelectTrack(closestListElement);
-        return;
+        updateStartButton();
       }
 
       // Podracer form field
       if (closestListElement.matches(RACER_SELECTOR)) {
         handleSelectPodRacer(closestListElement);
-        return;
+        updateStartButton();
       }
 
       // Submit create race form
@@ -55,7 +60,6 @@ const setupClickHandlers = () =>
 
         // start race
         handleCreateRace();
-        return;
       }
 
       // Handle acceleration click
@@ -133,7 +137,7 @@ const runRace = (raceId, trackId) =>
           clearInterval(raceInterval);
           return null;
         }
-        race.positions = addRacerNames(race.positions);
+        // race.positions = addRacerNames(race.positions);
         // update the leaderboard while the race is in progress
         if (race.status === "in-progress") {
           renderAt("#leaderBoard", raceProgress(race.positions, track));
@@ -413,7 +417,6 @@ const getTracks = () =>
     .then((res) => res.json())
     .catch((err) => console.error(`Error getting tracks: ${err}`));
 
-
 const getRacers = () =>
   fetch(`${SERVER}/api/cars`)
     .then((res) => res.json())
@@ -426,8 +429,6 @@ const createRace = (player_id, track_id) => {
 
   return fetch(`${SERVER}/api/races`, {
     method: "POST",
-    ...defaultFetchOpts(),
-    dataType: "jsonp",
     body: JSON.stringify(body),
   })
     .then((res) => res.json())
@@ -442,13 +443,11 @@ const getRace = (id) =>
 const startRace = (id) =>
   fetch(`${SERVER}/api/races/${id}/start`, {
     method: "POST",
-    ...defaultFetchOpts(),
   }).catch((err) => console.log(`Error starting race: ${err}`));
 
 const accelerate = (id) =>
   fetch(`${SERVER}/api/races/${id}/accelerate`, {
     method: "POST",
-    ...defaultFetchOpts(),
   })
     .then((res) => res.status)
     .catch((err) => console.log(`Error accelerating: ${err}`));
