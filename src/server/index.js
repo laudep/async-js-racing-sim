@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const path = require("path");
 
 const app = express();
-const DEFAULT_PORT = 3003;
+const DEFAULT_PORT = 3000;
 const SERVER = "http://localhost:8000";
 
 const defaultFetchOpts = () => ({
