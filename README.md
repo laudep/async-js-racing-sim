@@ -7,8 +7,6 @@
   <b>An exercise in asynchronous JavaScript</b>
 </p>
 
-[![Github Actions][gh-actions-badge]][gh-actions-url]
-
 ## Introduction
 <!-- markdownlint-enable -->
 This is a racing simulator in JavaScript made for a
@@ -117,7 +115,3 @@ Begin a race
 Accelerate a car
 
 - Returns nothing
-
-
-[gh-actions-badge]: https://img.shields.io/github/workflow/status/laudep/async-js-racing-sim/deploy
-[gh-actions-url]: https://github.com/laudep/async-js-racing-sim/actions
