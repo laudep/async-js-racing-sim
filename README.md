@@ -7,6 +7,14 @@
   <b>An exercise in asynchronous JavaScript</b>
 </p>
 
+- [Introduction](#introduction)
+  - [Game Mechanics](#game-mechanics)
+  - [Main Game Views](#main-game-views)
+- [Getting Started](#getting-started)
+  - [Start the Server](#start-the-server)
+  - [Start the Frontend](#start-the-frontend)
+- [API Calls Overview](#api-calls-overview)
+
 ## Introduction
 <!-- markdownlint-enable -->
 This is a racing simulator in JavaScript made for a Udacity course in
