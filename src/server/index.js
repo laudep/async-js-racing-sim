@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const path = require("path");
 
 const app = express();
-const port = 3000;
+const DEFAULT_PORT = 3000;
 
 // setup the ability to see into response bodies
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,4 +26,7 @@ app.get("/race", async (req, res) => {
   res.sendFile(path.join(__dirname, "../client/pages/race.html"));
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const currentPort = process.env.PORT || DEFAULT_PORT;
+app.listen(currentPort, () =>
+  console.log(`Example app listening on port ${currentPort}!`)
+);
