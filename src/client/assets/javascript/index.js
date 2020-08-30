@@ -196,7 +196,7 @@ function handleAccelerate() {
 
 // HTML VIEWS ------------------------------------------------
 function renderRacerCars(racers) {
-  if (!racers.length) {
+  if (!racers || !racers.length) {
     return `
 			<h4>Loading Racers...</4>
 		`;
