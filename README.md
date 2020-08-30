@@ -1,11 +1,22 @@
-# Async JavaScript Racing Simulator
+<!-- markdownlint-disable MD033 MD041-->
+<p align="center">
+  <img height="250" src="[https://vignette.wikia.nocookie.net/starwars/images/b/b1/PodracerAnakin.jpg/revision/latest?cb=20111205042103]">
+</p>
+<h1 align="center"> Pod Racing Simulator </h1>
+<p align="center">
+  <b>An exercise in asynchronous JavaScript</b>
+</p>
 
-An exercise in asynchronous JavaScript
+[![Github Actions][gh-actions-badge]][gh-actions-url]
 
 ## Introduction
-
+<!-- markdownlint-enable -->
 This is a racing simulator in JavaScript made for a
 [Udacity](https://www.udacity.com/) course in asynchronous programming.
+
+### Demo
+
+There's an online demo deployed on Heroku: [async-js-racing-sim.herokuapp.com][demo-url].
 
 ### Game Mechanics
 
@@ -110,3 +121,8 @@ Begin a race
 Accelerate a car
 
 - Returns nothing
+
+
+[gh-actions-badge]: https://img.shields.io/github/workflow/status/laudep/async-js-racing-sim/deploy
+[gh-actions-url]: https://github.com/laudep/async-js-racing-sim/actions
+[demo-url]: https://async-js-racing-sim.herokuapp.com/
