@@ -1,1 +1,2 @@
-web: env > .env; env GEM_HOME=$HOME/.gems env PATH=$PATH:$HOME/.gems/bin foreman start -f ProcfileFree
+web: npm start
+worker: ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-linux
