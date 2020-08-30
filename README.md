@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 MD041-->
 <p align="center">
-  <img height="250" src="[https://vignette.wikia.nocookie.net/starwars/images/b/b1/PodracerAnakin.jpg/revision/latest?cb=20111205042103]">
+  <img height="250" src="./src/../../src/client/assets/img/podracer_anakin.jpg">
 </p>
 <h1 align="center"> Pod Racing Simulator </h1>
 <p align="center">

@@ -22,7 +22,7 @@ body {
 }
 
 header {
-  background-image: url("https://vignette.wikia.nocookie.net/starwars/images/b/b1/PodracerAnakin.jpg/revision/latest?cb=20111205042103");
+  background-image: url("../img/podracer_anakin.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
