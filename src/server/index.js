@@ -5,7 +5,7 @@ const path = require("path");
 
 const app = express();
 const DEFAULT_PORT = 3003;
-const SERVER = "";
+const SERVER = "http://localhost:8000";
 
 const defaultFetchOpts = () => ({
   mode: "cors",
