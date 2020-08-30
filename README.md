@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 MD041-->
 <p align="center">
-  <img height="250" src="./src/../../src/client/assets/img/podracer_anakin.jpg">
+  <img height="250" src="./src/client/assets/img/podracer_anakin.jpg">
 </p>
 <h1 align="center"> Pod Racing Simulator </h1>
 <p align="center">
