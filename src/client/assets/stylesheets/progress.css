@@ -6,7 +6,6 @@ header {
 }
 
 main#two-columns {
-  /* margin: 50px 0; */
   display: flex;
 }
 
@@ -15,12 +14,13 @@ main#two-columns section {
 }
 
 section#accelerate button {
-  height: 300px;
-  width: 300px;
-  margin: 30px auto;
+  height: 10vh;
+  width: 10vh;
+  margin: 5vw 5vh;
   border-radius: 180%;
   background-color: green;
   border-color: rgb(14, 166, 6);
+  outline-color: transparent;
   cursor: pointer;
 }
 

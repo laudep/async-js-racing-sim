@@ -3,6 +3,7 @@ const store = {
   track_id: undefined,
   player_id: undefined,
   race_id: undefined,
+  cheat_mode: false,
 };
 
 // We need our javascript to wait until the DOM is loaded
@@ -58,16 +59,23 @@ const setupClickHandlers = () =>
       }
 
       // Handle acceleration click
-      //TODO remove
       if (target.matches("#gas-peddle")) {
-        const times = (x) => (f) => {
-          if (x > 0) {
-            f();
-            times(x - 1)(f);
-          }
-        };
-        times(25)(() => handleAccelerate(target));
-        // handleAccelerate(target);
+        const countdown = document.getElementById("big-numbers");
+        if (countdown && Number(countdown.innerText) > 0) {
+          return;
+        }
+
+        if (store.cheat_mode) {
+          const times = (x) => (f) => {
+            if (x > 0) {
+              f();
+              times(x - 1)(f);
+            }
+          };
+          times(25)(() => handleAccelerate(target));
+        } else {
+          handleAccelerate(target);
+        }
         return;
       }
     },
@@ -151,7 +159,7 @@ async function runCountdown() {
 
     return new Promise((resolve) => {
       const countdown = () => {
-        if (timer > 0) {
+        if (timer > 1) {
           document.getElementById("big-numbers").innerHTML = --timer;
         } else {
           clearInterval(countInterval);
@@ -289,7 +297,6 @@ function renderRaceStartView(track, racers) {
 				<button id="gas-peddle">Click Me To Win!</button>
 			</section>
 		</main>
-		<footer></footer>
 	`;
 }
 
