@@ -7,6 +7,14 @@ const app = express();
 const DEFAULT_PORT = 3000;
 const SERVER = "http://localhost:8000";
 
+const defaultFetchOpts = () => ({
+  mode: "cors",
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": SERVER,
+  },
+});
+
 // setup the ability to see into response bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -53,11 +61,41 @@ const addTrackNames = (tracks) =>
   });
 
 app.get("/api/tracks", async (req, res) => {
-  res.send(
-    fetch(`${SERVER}/api/tracks`)
-      .then((res) => res.json())
-      .then((data) => addTrackNames(data))
-  );
+  fetch(`${SERVER}/api/tracks`)
+    .then((res) => res.json())
+    .then((data) => addTrackNames(data))
+    .then((tracks) => res.send(tracks));
+});
+
+const addRacerNames = (racers) =>
+  racers.map((racer) => {
+    switch (racer.driver_name) {
+      case "Racer 1":
+        racer.driver_name = "Ben Quadinaros";
+        break;
+      case "Racer 2":
+        racer.driver_name = "Gasgano";
+        break;
+      case "Racer 3":
+        racer.driver_name = "Anakin Skywalker";
+        break;
+        break;
+      case "Racer 4":
+        racer.driver_name = "Clegg Holdfast";
+        break;
+      case "Racer 5":
+        racer.driver_name = "By't Distombe";
+        break;
+    }
+    return racer;
+  });
+
+app.get("/api/tracks", async (req, res) => {
+  fetch(`${SERVER}/api/cars`)
+    .then((res) => res.json())
+    .then((data) => addRacerNames(data))
+    .then((racers) => res.send(racers))
+    .catch((err) => console.error(`Error getting racers: ${err}`));
 });
 
 const currentPort = process.env.PORT || DEFAULT_PORT;

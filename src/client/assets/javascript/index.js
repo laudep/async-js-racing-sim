@@ -408,64 +408,15 @@ function defaultFetchOpts() {
   };
 }
 
-const addTrackNames = (tracks) =>
-  tracks.map((track) => {
-    switch (track.name) {
-      case "Track 1":
-        track.name = "Vengeance";
-        break;
-      case "Track 2":
-        track.name = "Sunken City";
-        break;
-      case "Track 3":
-        track.name = "Inferno";
-        break;
-      case "Track 4":
-        track.name = "Executioner";
-        break;
-      case "Track 5":
-        track.name = "Abyss";
-        break;
-      case "Track 6":
-        track.name = "The Gauntlet";
-        break;
-    }
-    return track;
-  });
-
 const getTracks = () =>
   fetch(`${SERVER}/api/tracks`)
     .then((res) => res.json())
-    .then((data) => addTrackNames(data))
     .catch((err) => console.error(`Error getting tracks: ${err}`));
 
-const addRacerNames = (racers) =>
-  racers.map((racer) => {
-    switch (racer.driver_name) {
-      case "Racer 1":
-        racer.driver_name = "Ben Quadinaros";
-        break;
-      case "Racer 2":
-        racer.driver_name = "Gasgano";
-        break;
-      case "Racer 3":
-        racer.driver_name = "Anakin Skywalker";
-        break;
-        break;
-      case "Racer 4":
-        racer.driver_name = "Clegg Holdfast";
-        break;
-      case "Racer 5":
-        racer.driver_name = "By't Distombe";
-        break;
-    }
-    return racer;
-  });
 
 const getRacers = () =>
   fetch(`${SERVER}/api/cars`)
     .then((res) => res.json())
-    .then((data) => addRacerNames(data))
     .catch((err) => console.error(`Error getting racers: ${err}`));
 
 const createRace = (player_id, track_id) => {
