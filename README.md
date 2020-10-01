@@ -18,7 +18,9 @@
 ## Introduction
 <!-- markdownlint-enable -->
 This is a racing simulator in JavaScript made for a Udacity course in
-asynchronous programming.
+asynchronous programming.  
+The front-end is built in vanilla JS, while the backend consists of a black
+box binary built in Go.
 
 ### Game Mechanics
 
@@ -46,7 +48,7 @@ the front end.
 
 The game engine has been compiled down to a binary so that you can run it on
 any system.  
-Because of this, you cannot edit the API in any way, it is just a black box
+Because of this, you cannot edit the API in any way. It is just a black box
 that we interact with via the API endpoints.
 
 To run the server, locate your operating system and run the associated command
