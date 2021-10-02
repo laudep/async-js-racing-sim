@@ -16,11 +16,13 @@
 - [API Calls Overview](#api-calls-overview)
 
 ## Introduction
+
 <!-- markdownlint-enable -->
 This is a racing simulator in JavaScript made for a Udacity course in
 asynchronous programming.  
 The front-end is built in vanilla JS, while the backend consists of a black
-box binary built in Go.
+box binary built in Go. 
+Note: this project dates from 2020 so the code is dated.
 
 ### Game Mechanics
 
